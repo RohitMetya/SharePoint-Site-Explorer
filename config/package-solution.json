@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "ms-graph-get-site-in-fo-client-side-solution",
+    "id": "397720b0-5f68-4760-b3f1-f8017c081594",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.22.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "ms-graph-get-site-in-fo description"
+      },
+      "longDescription": {
+        "default": "ms-graph-get-site-in-fo description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "ms-graph-get-site-in-fo Feature",
+        "description": "The feature that activates elements of the ms-graph-get-site-in-fo solution.",
+        "id": "0270d85d-9ed0-4624-b095-d64d7a6d39db",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/ms-graph-get-site-in-fo.sppkg"
+  }
+}
