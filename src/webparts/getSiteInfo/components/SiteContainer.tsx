@@ -3,11 +3,11 @@ import styles from './GetSiteInfo.module.scss';
 import type { IGetSiteInfoProps } from './IGetSiteInfoProps';
 import { escape } from '@microsoft/sp-lodash-subset';
 import { useState, useMemo, useEffect } from 'react';
-import { GraphService } from '../services/GraphService';
+import { SiteService } from '../services/SiteService';
 import { ICurrentSite } from '../models/ICurrentSite';
 import SiteInfoCard from './SiteInformationCard/SiteInformationCard';
 
-const GetSiteInfo: React.FC<IGetSiteInfoProps> = (props) => {
+const SiteContainer: React.FC<IGetSiteInfoProps> = (props) => {
 
   const [currentSite, setCurrentSite] = useState<ICurrentSite>({
     siteName: "",
@@ -25,15 +25,15 @@ const GetSiteInfo: React.FC<IGetSiteInfoProps> = (props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
 
-  const graphService = useMemo(() => {
-    return new GraphService(props.graphClient, props.siteId);
+  const siteService = useMemo(() => {
+    return new SiteService(props.graphClient, props.siteId);
   }, [props.graphClient, props.siteId]);
 
   const fetchSiteInfo = async (): Promise<void> => {
     try {
       setLoading(true);
       setError("");
-      const currentSiteInfo = await graphService.getCurrentSiteDetails();
+      const currentSiteInfo = await siteService.getCurrentSiteDetails();
       setCurrentSite(currentSiteInfo);
 
     } catch (error) {
@@ -58,11 +58,11 @@ const GetSiteInfo: React.FC<IGetSiteInfoProps> = (props) => {
 
     void fetchSiteInfo();
 
-  }, [graphService]);
+  }, [siteService]);
 
   return (
     <SiteInfoCard currentSite={currentSite} />
   )
 };
 
-export default GetSiteInfo;
+export default SiteContainer;

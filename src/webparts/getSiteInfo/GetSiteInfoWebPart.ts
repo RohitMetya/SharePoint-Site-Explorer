@@ -9,9 +9,10 @@ import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import * as strings from 'GetSiteInfoWebPartStrings';
-import GetSiteInfo from './components/GetSiteInfo';
+import GetSiteInfo from './components/SiteContainer';
 import { IGetSiteInfoProps } from './components/IGetSiteInfoProps';
 import { MSGraphClientV3 } from '@microsoft/sp-http';
+import Dashboard from './components/Dashboard/Dashboard';
 
 export interface IGetSiteInfoWebPartProps {
   description: string;
@@ -25,13 +26,8 @@ export default class GetSiteInfoWebPart extends BaseClientSideWebPart<IGetSiteIn
 
   public render(): void {
     const element: React.ReactElement<IGetSiteInfoProps> = React.createElement(
-      GetSiteInfo,
+      Dashboard,
       {
-        description: this.properties.description,
-        isDarkTheme: this._isDarkTheme,
-        environmentMessage: this._environmentMessage,
-        hasTeamsContext: !!this.context.sdks.microsoftTeams,
-        userDisplayName: this.context.pageContext.user.displayName,
         graphClient: this._graphClient,
         siteId: this.context.pageContext.site.id.toString()
       }

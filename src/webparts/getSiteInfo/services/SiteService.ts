@@ -5,7 +5,7 @@ import { ISiteInfo } from '../models/ISiteInfo';
 import { IDriveInfo } from '../models/IDriveInfo';
 import { IGraphDriveResponse } from '../models/dto/IGraphDriveResponse';
 
-export class GraphService {
+export class SiteService {
   constructor(private graphClient: MSGraphClientV3, private siteId: string) { }
 
   public async getSiteInfo(): Promise<ISiteInfo> {
