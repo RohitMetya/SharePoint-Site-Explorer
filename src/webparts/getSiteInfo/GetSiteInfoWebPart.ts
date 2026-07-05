@@ -9,7 +9,6 @@ import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
 
 import * as strings from 'GetSiteInfoWebPartStrings';
-import GetSiteInfo from './components/SiteContainer';
 import { IGetSiteInfoProps } from './components/IGetSiteInfoProps';
 import { MSGraphClientV3 } from '@microsoft/sp-http';
 import Dashboard from './components/Dashboard/Dashboard';

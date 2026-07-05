@@ -2,63 +2,54 @@ import * as React from 'react';
 import styles from './GetSiteInfo.module.scss';
 import type { IGetSiteInfoProps } from './IGetSiteInfoProps';
 import { escape } from '@microsoft/sp-lodash-subset';
-import { useState, useMemo, useEffect } from 'react';
-import { SiteService } from '../services/SiteService';
-import { ICurrentSite } from '../models/ICurrentSite';
 import SiteInfoCard from './SiteInformationCard/SiteInformationCard';
+import { useSiteInfo } from '../hooks/useSiteInfo';
+import {
+  Spinner,
+  SpinnerSize,
+  MessageBar,
+  MessageBarType,
+  PrimaryButton,
+  Stack
+} from "@fluentui/react";
 
 const SiteContainer: React.FC<IGetSiteInfoProps> = (props) => {
 
-  const [currentSite, setCurrentSite] = useState<ICurrentSite>({
-    siteName: "",
+  const { currentSite, loading, error, refresh } = useSiteInfo(props.graphClient, props.siteId)
 
-    siteUrl: "",
+  if (loading) {
 
-    siteCreatedDate: "",
+    return (
+      <Spinner
+        label="Loading site information..."
+        size={SpinnerSize.large}
+      />
+    );
 
-    siteLastModifiedDate: "",
+  }
 
-    siteStorageQuota: 0,
+  if (error) {
 
-    siteStorageUsed: 0
-  });
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
+    return (
 
-  const siteService = useMemo(() => {
-    return new SiteService(props.graphClient, props.siteId);
-  }, [props.graphClient, props.siteId]);
+      <Stack tokens={{ childrenGap: 12 }}>
 
-  const fetchSiteInfo = async (): Promise<void> => {
-    try {
-      setLoading(true);
-      setError("");
-      const currentSiteInfo = await siteService.getCurrentSiteDetails();
-      setCurrentSite(currentSiteInfo);
+        <MessageBar
+          messageBarType={MessageBarType.error}
+        >
+          {error}
+        </MessageBar>
 
-    } catch (error) {
-      console.error("Failed to fetch current site information.",error);
-      setError("Unable to load site info");
-      setCurrentSite({
-        siteName: "",
-        siteUrl: "",
-        siteCreatedDate: "",
-        siteLastModifiedDate: "",
-        siteStorageQuota: 0,
-        siteStorageUsed: 0
-      });
+        <PrimaryButton
+          text="Retry"
+          onClick={() => void refresh()}
+        />
 
-    } finally {
-      setLoading(false);
-    }
+      </Stack>
 
-  };
+    );
 
-  useEffect(() => {
-
-    void fetchSiteInfo();
-
-  }, [siteService]);
+  }
 
   return (
     <SiteInfoCard currentSite={currentSite} />
