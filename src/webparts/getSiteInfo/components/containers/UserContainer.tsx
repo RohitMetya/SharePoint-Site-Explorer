@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { IGetSiteInfoProps } from './IGetSiteInfoProps';
-import UserProfileCard from './UserProfileCard/UserProfileCard';
-import { useCurrentUser } from '../hooks/useCurrentUser';
+import { IGetSiteInfoProps } from '../IGetSiteInfoProps';
+import UserProfileCard from '../UserProfileCard/UserProfileCard';
+import { useCurrentUser } from '../../hooks/useCurrentUser';
 import {
     Spinner,
     SpinnerSize,

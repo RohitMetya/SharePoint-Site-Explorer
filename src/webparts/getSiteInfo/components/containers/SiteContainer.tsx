@@ -1,9 +1,9 @@
 import * as React from 'react';
-import styles from './GetSiteInfo.module.scss';
-import type { IGetSiteInfoProps } from './IGetSiteInfoProps';
+import styles from '../GetSiteInfo.module.scss';
+import type { IGetSiteInfoProps } from '../IGetSiteInfoProps';
 import { escape } from '@microsoft/sp-lodash-subset';
-import SiteInfoCard from './SiteInformationCard/SiteInformationCard';
-import { useSiteInfo } from '../hooks/useSiteInfo';
+import SiteInfoCard from '../SiteInformationCard/SiteInformationCard';
+import { useSiteInfo } from '../../hooks/useSiteInfo';
 import {
   Spinner,
   SpinnerSize,

@@ -12,6 +12,7 @@ import * as strings from 'GetSiteInfoWebPartStrings';
 import { IGetSiteInfoProps } from './components/IGetSiteInfoProps';
 import { MSGraphClientV3 } from '@microsoft/sp-http';
 import Dashboard from './components/Dashboard/Dashboard';
+import { SiteProvider } from "../getSiteInfo/context/SiteContext";
 
 export interface IGetSiteInfoWebPartProps {
   description: string;
@@ -24,12 +25,16 @@ export default class GetSiteInfoWebPart extends BaseClientSideWebPart<IGetSiteIn
   private _graphClient!: MSGraphClientV3;
 
   public render(): void {
-    const element: React.ReactElement<IGetSiteInfoProps> = React.createElement(
-      Dashboard,
-      {
-        graphClient: this._graphClient,
-        siteId: this.context.pageContext.site.id.toString()
-      }
+    const element: React.ReactElement = React.createElement(
+      SiteProvider,
+      null,
+      React.createElement(
+        Dashboard,
+        {
+          graphClient: this._graphClient,
+          siteId: this.context.pageContext.site.id.toString()
+        }
+      )
     );
 
     ReactDom.render(element, this.domElement);
