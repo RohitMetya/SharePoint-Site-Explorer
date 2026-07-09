@@ -9,6 +9,7 @@ import SiteSearch from "../SiteSearch";
 import { useSiteResolver } from "../../hooks/useSiteResolver";
 import { MessageBar, MessageBarType } from "@fluentui/react";
 import SiteListsContainer from "../containers/SiteListsContainer";
+import SiteLibrariesContainer from "../containers/SiteLibrariesContainer";
 
 const Dashboard: React.FC<IDashboardProps> = (props) => {
     const { selectedSite } = useSite();
@@ -117,6 +118,16 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
 
                             />
 
+                        </Stack.Item>
+                        <Stack.Item
+                            grow
+                            className={styles.stackItem}
+                        >
+                            <SiteLibrariesContainer
+                                graphClient={props.graphClient}
+                                siteId={selectedSite.siteId}
+
+                            />
                         </Stack.Item>
 
                     </Stack>
