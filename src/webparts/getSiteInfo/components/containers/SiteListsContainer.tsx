@@ -5,6 +5,7 @@ import { MSGraphClientV3 } from "@microsoft/sp-http";
 import SiteListsCard from "../SiteLists/SiteListsCard";
 
 import { useSiteLists } from "../../hooks/useSiteLists";
+import AsyncContent from "../Shared/AsyncContent";
 
 export interface ISiteListsContainerProps {
 
@@ -23,25 +24,23 @@ const SiteListsContainer: React.FC<ISiteListsContainerProps> = (props) => {
         refresh
     } = useSiteLists(props.graphClient, props.siteId);
 
-    if (loading) {
-
-        return <div>Loading Lists...</div>;
-
-    }
-
-    if (error) {
-
-        return <div>{error}</div>;
-
-    }
-
     return (
 
-        <SiteListsCard
+        <AsyncContent
 
-            lists={lists}
+            loading={loading}
 
-        />
+            error={error}
+
+        >
+
+            <SiteListsCard
+
+                lists={lists}
+
+            />
+
+        </AsyncContent>
 
     );
 

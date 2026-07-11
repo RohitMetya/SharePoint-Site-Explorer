@@ -10,6 +10,10 @@ import { useSiteResolver } from "../../hooks/useSiteResolver";
 import { MessageBar, MessageBarType } from "@fluentui/react";
 import SiteListsContainer from "../containers/SiteListsContainer";
 import SiteLibrariesContainer from "../containers/SiteLibrariesContainer";
+import { useState } from "react";
+import DashboardNavigation from "../DashboardNavigation";
+import SitePagesContainer from "../containers/SitePagesContainer";
+import SitePeopleContainer from "../containers/SitePeopleContainer";
 
 const Dashboard: React.FC<IDashboardProps> = (props) => {
     const { selectedSite } = useSite();
@@ -18,6 +22,7 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
         loading,
         error
     } = useSiteResolver(props.graphClient);
+    const [selectedTab, setSelectedTab] = useState("overview");
 
     return (
 
@@ -66,76 +71,78 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
             }
 
             {
-
                 selectedSite && (
 
+                    <DashboardNavigation
+
+                        selectedKey={selectedTab}
+
+                        onChange={setSelectedTab}
+
+                    />
+
+                )
+            }
+
+
+            {
+                selectedSite &&
+                selectedTab === "overview" && (
+
+                    <SiteContainer
+
+                        graphClient={props.graphClient}
+
+                        spHttpClient={props.spHttpClient}
+
+                        siteId={selectedSite.siteId}
+                        
+
+                    />
+
+                )
+            }
+            {
+                selectedSite &&
+                selectedTab === "contents" && (
 
                     <Stack
-                        horizontal
-                        wrap
-                        tokens={{ childrenGap: 20 }}
+                        tokens={{ childrenGap: 24 }}
                     >
 
-                        <Stack.Item
-                            grow
-                            className={styles.stackItem}
-                        >
+                        <SiteListsContainer
+                            graphClient={props.graphClient}
+                            siteId={selectedSite.siteId}
+                        />
 
-                            <SiteContainer
+                        <SiteLibrariesContainer
+                            graphClient={props.graphClient}
+                            siteId={selectedSite.siteId}
+                        />
 
-                                graphClient={props.graphClient}
-
-                                siteId={selectedSite.siteId}
-
-                            />
-
-                        </Stack.Item>
-
-                        <Stack.Item
-                            grow
-                            className={styles.stackItem}
-                        >
-
-                            <UserContainer
-
-                                graphClient={props.graphClient}
-
-                                siteId={selectedSite.siteId}
-
-                            />
-
-                        </Stack.Item>
-                        <Stack.Item
-                            grow
-                            className={styles.stackItem}
-                        >
-
-                            <SiteListsContainer
-
-                                graphClient={props.graphClient}
-
-                                siteId={selectedSite.siteId}
-
-                            />
-
-                        </Stack.Item>
-                        <Stack.Item
-                            grow
-                            className={styles.stackItem}
-                        >
-                            <SiteLibrariesContainer
-                                graphClient={props.graphClient}
-                                siteId={selectedSite.siteId}
-
-                            />
-                        </Stack.Item>
+                        <SitePagesContainer
+                            graphClient={props.graphClient}
+                            siteId={selectedSite.siteId}
+                        />
 
                     </Stack>
 
                 )
-
             }
+            {
+                selectedSite &&
+                selectedTab === "people" && (
 
+                    <SitePeopleContainer
+
+                        spHttpClient={props.spHttpClient}
+
+                        siteUrl={selectedSite.siteUrl}
+
+                    />
+
+                )
+            }
         </Stack>
 
     );

@@ -10,4 +10,10 @@ export interface IGraphListResponse {
 
     system?: boolean;
 
+    list: {
+
+        template: string;
+
+    };
+
 }

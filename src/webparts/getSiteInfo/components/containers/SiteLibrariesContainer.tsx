@@ -10,6 +10,7 @@ interface ISiteLibrariesContainerProps {
     graphClient: MSGraphClientV3;
     siteId: string;
 }
+import AsyncContent from "../Shared/AsyncContent";
 
 const SiteLibrariesContainer: React.FC<ISiteLibrariesContainerProps> = (props) => {
 
@@ -19,21 +20,17 @@ const SiteLibrariesContainer: React.FC<ISiteLibrariesContainerProps> = (props) =
         error
     } = useSiteLibraries(props.graphClient, props.siteId);
 
-    if (loading) {
-
-        return <div>Loading Libraries...</div>;
-
-    }
-
-    if (error) {
-        return <div>{error}</div>;
-    }
-
     return (
 
-        <SiteLibrariesCard
-            libraries={libraries}
-        />
+        <AsyncContent
+            loading={loading}
+            error={error}
+
+        >
+            <SiteLibrariesCard
+                libraries={libraries}
+            />
+        </AsyncContent>
 
     );
 

@@ -7,10 +7,9 @@ import {
 } from '@microsoft/sp-property-pane';
 import { BaseClientSideWebPart } from '@microsoft/sp-webpart-base';
 import { IReadonlyTheme } from '@microsoft/sp-component-base';
-
 import * as strings from 'GetSiteInfoWebPartStrings';
 import { IGetSiteInfoProps } from './components/IGetSiteInfoProps';
-import { MSGraphClientV3 } from '@microsoft/sp-http';
+import { MSGraphClientV3, SPHttpClient } from '@microsoft/sp-http';
 import Dashboard from './components/Dashboard/Dashboard';
 import { SiteProvider } from "../getSiteInfo/context/SiteContext";
 
@@ -32,7 +31,8 @@ export default class GetSiteInfoWebPart extends BaseClientSideWebPart<IGetSiteIn
         Dashboard,
         {
           graphClient: this._graphClient,
-          siteId: this.context.pageContext.site.id.toString()
+          siteId: this.context.pageContext.site.id.toString(),
+          spHttpClient: this.context.spHttpClient
         }
       )
     );

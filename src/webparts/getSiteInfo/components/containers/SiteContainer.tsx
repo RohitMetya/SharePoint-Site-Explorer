@@ -12,48 +12,25 @@ import {
   PrimaryButton,
   Stack
 } from "@fluentui/react";
+import AsyncContent from '../Shared/AsyncContent';
 
 const SiteContainer: React.FC<IGetSiteInfoProps> = (props) => {
 
   const { currentSite, loading, error, refresh } = useSiteInfo(props.graphClient, props.siteId)
 
-  if (loading) {
-
-    return (
-      <Spinner
-        label="Loading site information..."
-        size={SpinnerSize.large}
-      />
-    );
-
-  }
-
-  if (error) {
-
-    return (
-
-      <Stack tokens={{ childrenGap: 12 }}>
-
-        <MessageBar
-          messageBarType={MessageBarType.error}
-        >
-          {error}
-        </MessageBar>
-
-        <PrimaryButton
-          text="Retry"
-          onClick={() => void refresh()}
-        />
-
-      </Stack>
-
-    );
-
-  }
 
   return (
-    <SiteInfoCard currentSite={currentSite} />
-  )
-};
+
+    <AsyncContent
+      loading={loading}
+      error={error}
+    >
+
+      <SiteInfoCard currentSite={currentSite} />
+
+    </AsyncContent>
+
+  );
+}
 
 export default SiteContainer;

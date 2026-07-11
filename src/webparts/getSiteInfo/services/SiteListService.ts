@@ -13,10 +13,17 @@ export class SiteListService {
 
         const response = await this.graphClient
             .api(`/sites/${this.siteId}/lists`)
-            .select("id,displayName,description,webUrl,system")
+            .select("id,displayName,description,webUrl,system,list")
             .get();
         const graphLists = response.value as IGraphListResponse[];
-        return graphLists.map((list) => ({
+        const filteredLists = graphLists.filter(filteredList => {
+
+            return filteredList.list?.template !== "documentLibrary" && filteredList.list?.template !== "webTemplateExtensionsList" && !filteredList.system;
+
+        });
+        console.table(filteredLists);
+        
+        return filteredLists.map((list) => ({
 
             id: list.id,
 
