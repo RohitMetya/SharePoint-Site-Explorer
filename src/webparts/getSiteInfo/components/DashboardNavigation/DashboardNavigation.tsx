@@ -62,9 +62,9 @@ const DashboardNavigation: React.FC<IDashboardNavigationProps> = ({
 
             <PivotItem
 
-                headerText="Security"
+                headerText="Access"
 
-                itemKey="security"
+                itemKey="access"
 
             />
 

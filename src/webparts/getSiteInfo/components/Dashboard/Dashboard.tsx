@@ -14,6 +14,7 @@ import { useState } from "react";
 import DashboardNavigation from "../DashboardNavigation";
 import SitePagesContainer from "../containers/SitePagesContainer";
 import SitePeopleContainer from "../containers/SitePeopleContainer";
+import SiteAccessContainer from "../containers/SiteAccessContainer";
 
 const Dashboard: React.FC<IDashboardProps> = (props) => {
     const { selectedSite } = useSite();
@@ -96,7 +97,7 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
                         spHttpClient={props.spHttpClient}
 
                         siteId={selectedSite.siteId}
-                        
+
 
                     />
 
@@ -134,6 +135,20 @@ const Dashboard: React.FC<IDashboardProps> = (props) => {
                 selectedTab === "people" && (
 
                     <SitePeopleContainer
+
+                        spHttpClient={props.spHttpClient}
+
+                        siteUrl={selectedSite.siteUrl}
+
+                    />
+
+                )
+            }
+            {
+                selectedSite &&
+                selectedTab === "access" && (
+
+                    <SiteAccessContainer
 
                         spHttpClient={props.spHttpClient}
 
